@@ -22,7 +22,9 @@ ship_image = pygame.image.load('images/飞机.png')
 ship_rect = ship_image.get_rect()
 ship_rect.midbottom = screen_rect.midbottom
 
-pig_image = pygame.image.load('images/猪头.png')
+pig_image = pygame.image.load('images/猪头1.png')
+pig_rect = pig_image.get_rect()
+pig_rect.top = screen_rect.top
 
 bullet_rect_list = []
 
@@ -69,6 +71,7 @@ while True:
 
     screen_image.fill(color1)
     screen_image.blit(ship_image, ship_rect)
+    screen_image.blit(pig_image, pig_rect)
     for bullet_rect in bullet_rect_list:
         pygame.draw.rect(screen_image, color2, bullet_rect)
         if bullet_rect.bottom < 0:

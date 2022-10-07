@@ -14,7 +14,7 @@ pygame.display.set_caption('我爱打飞机')
 
 ship_image = pygame.image.load('images/1.png')
 ship_rect = ship_image.get_rect()
-ship_rect.center = screen_rect.center
+ship_rect.midbottom = screen_rect.midbottom
 
 bullet_rect = pygame.Rect(0, 0, 5, 12)
 

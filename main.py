@@ -23,13 +23,13 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and ship_rect.x > 0:
                 ship_rect.x -= 10
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and ship_rect.x + ship_rect.width < 400:
                 ship_rect.x += 10
-            elif event.key == pygame.K_UP:
+            elif event.key == pygame.K_UP and ship_rect.y > 0:
                 ship_rect.y -= 10
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and ship_rect.y + ship_rect.height < 700:
                 ship_rect.y += 10
             elif event.key == pygame.K_SPACE:
                 bullet_rect.midbottom = ship_rect.midtop

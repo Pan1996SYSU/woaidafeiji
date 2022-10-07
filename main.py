@@ -18,6 +18,8 @@ screen_image = pygame.display.set_mode((screen_width, screen_height))
 screen_rect = screen_image.get_rect()
 
 pygame.display.set_caption('我爱打飞机')
+title_img = pygame.image.load('images/1.png')
+pygame.display.set_icon(title_img)
 
 ship_image = pygame.image.load('images/飞机.png')
 ship_rect = ship_image.get_rect()

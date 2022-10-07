@@ -23,7 +23,7 @@ ship_image = pygame.image.load('images/飞机.png')
 ship_rect = ship_image.get_rect()
 ship_rect.midbottom = screen_rect.midbottom
 
-pig_image = pygame.image.load('images/猪头1.png')
+pig_image = pygame.image.load('images/猪头.png')
 pig_rect = pig_image.get_rect()
 pig_rect.top = screen_rect.top
 

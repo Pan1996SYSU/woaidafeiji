@@ -1,16 +1,41 @@
-# 这是一个示例 Python 脚本。
+import sys
 
-# 按 Shift+F10 执行或将其替换为您的代码。
-# 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
+import pygame
 
+pygame.init()
 
-def print_hi(name):
-    # 在下面的代码行中使用断点来调试脚本。
-    print(f'Hi, {name}')  # 按 Ctrl+F8 切换断点。
+color1 = (0, 128, 128)
+color2 = (60, 60, 60)
 
+screen_image = pygame.display.set_mode((400, 700))
+screen_rect = screen_image.get_rect()
 
-# 按间距中的绿色按钮以运行脚本。
-if __name__ == '__main__':
-    print_hi('PyCharm')
+pygame.display.set_caption('我爱打飞机')
 
-# 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+ship_image = pygame.image.load('images/1.png')
+ship_rect = ship_image.get_rect()
+ship_rect.center = screen_rect.center
+
+bullet_rect = pygame.Rect(0, 0, 5, 12)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                ship_rect.x -= 10
+            elif event.key == pygame.K_RIGHT:
+                ship_rect.x += 10
+            elif event.key == pygame.K_UP:
+                ship_rect.y -= 10
+            elif event.key == pygame.K_DOWN:
+                ship_rect.y += 10
+            elif event.key == pygame.K_SPACE:
+                bullet_rect.midbottom = ship_rect.midtop
+
+    bullet_rect.y -= 1
+    screen_image.fill(color1)
+    screen_image.blit(ship_image, ship_rect)
+    pygame.draw.rect(screen_image, color2, bullet_rect)
+    pygame.display.flip()

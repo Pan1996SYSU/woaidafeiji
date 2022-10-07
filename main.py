@@ -22,6 +22,8 @@ ship_image = pygame.image.load('images/飞机.png')
 ship_rect = ship_image.get_rect()
 ship_rect.midbottom = screen_rect.midbottom
 
+pig_image = pygame.image.load('images/猪头.png')
+
 bullet_rect_list = []
 
 moving_left = False

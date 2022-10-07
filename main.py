@@ -4,10 +4,16 @@ import pygame
 
 pygame.init()
 
+moving_speed = 1
+pause_time = 0.002
+
 color1 = (0, 128, 128)
 color2 = (60, 60, 60)
 
-screen_image = pygame.display.set_mode((400, 700))
+screen_height = 700
+screen_width = 400
+
+screen_image = pygame.display.set_mode((screen_width, screen_height))
 screen_rect = screen_image.get_rect()
 
 pygame.display.set_caption('我爱打飞机')
@@ -16,7 +22,7 @@ ship_image = pygame.image.load('images/1.png')
 ship_rect = ship_image.get_rect()
 ship_rect.midbottom = screen_rect.midbottom
 
-bullet_rect = pygame.Rect(0, 0, 5, 12)
+bullet_rect_list = []
 
 moving_left = False
 moving_right = False
@@ -24,7 +30,7 @@ moving_up = False
 moving_down = False
 
 while True:
-    time.sleep(0.002)
+    time.sleep(pause_time)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -38,7 +44,9 @@ while True:
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = True
             elif event.key == pygame.K_SPACE:
+                bullet_rect = pygame.Rect(0, 0, 5, 12)
                 bullet_rect.midbottom = ship_rect.midtop
+                bullet_rect_list.append(bullet_rect)
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 moving_left = False
@@ -49,16 +57,17 @@ while True:
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = False
     if moving_left and ship_rect.x > 0:
-        ship_rect.x -= 1
-    if moving_right and ship_rect.x + ship_rect.width < 400:
-        ship_rect.x += 1
+        ship_rect.x -= moving_speed
+    if moving_right and ship_rect.x + ship_rect.width < screen_width:
+        ship_rect.x += moving_speed
     if moving_up and ship_rect.y > 0:
-        ship_rect.y -= 1
-    if moving_down and ship_rect.y + ship_rect.height < 700:
-        ship_rect.y += 1
+        ship_rect.y -= moving_speed
+    if moving_down and ship_rect.y + ship_rect.height < screen_height:
+        ship_rect.y += moving_speed
 
-    bullet_rect.y -= 1
     screen_image.fill(color1)
     screen_image.blit(ship_image, ship_rect)
-    pygame.draw.rect(screen_image, color2, bullet_rect)
+    for bullet_rect in bullet_rect_list:
+        pygame.draw.rect(screen_image, color2, bullet_rect)
+        bullet_rect.y -= moving_speed
     pygame.display.flip()

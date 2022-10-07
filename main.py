@@ -5,6 +5,7 @@ import pygame
 pygame.init()
 
 moving_speed = 1
+bullet_speed = 3
 pause_time = 0.002
 
 color1 = (70, 90, 128)
@@ -48,7 +49,7 @@ while True:
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = True
             elif event.key == pygame.K_SPACE:
-                bullet_rect = pygame.Rect(0, 0, 5, 12)
+                bullet_rect = pygame.Rect(0, 0, 7, 12)
                 bullet_rect.midbottom = ship_rect.midtop
                 bullet_rect_list.append(bullet_rect)
         elif event.type == pygame.KEYUP:
@@ -76,6 +77,6 @@ while True:
         pygame.draw.rect(screen_image, color2, bullet_rect)
         if bullet_rect.bottom < 0:
             bullet_rect_list.remove(bullet_rect)
-        bullet_rect.y -= moving_speed
+        bullet_rect.y -= bullet_speed
     # print(len(bullet_rect_list))
     pygame.display.flip()

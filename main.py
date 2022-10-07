@@ -18,7 +18,7 @@ screen_rect = screen_image.get_rect()
 
 pygame.display.set_caption('我爱打飞机')
 
-ship_image = pygame.image.load('images/1.png')
+ship_image = pygame.image.load('images/飞机.png')
 ship_rect = ship_image.get_rect()
 ship_rect.midbottom = screen_rect.midbottom
 
@@ -69,5 +69,8 @@ while True:
     screen_image.blit(ship_image, ship_rect)
     for bullet_rect in bullet_rect_list:
         pygame.draw.rect(screen_image, color2, bullet_rect)
+        if bullet_rect.bottom < 0:
+            bullet_rect_list.remove(bullet_rect)
         bullet_rect.y -= moving_speed
+    # print(len(bullet_rect_list))
     pygame.display.flip()

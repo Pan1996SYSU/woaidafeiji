@@ -27,10 +27,12 @@ space_ship.image = pygame.image.load('images/飞机.png')
 space_ship.rect = space_ship.image.get_rect()
 space_ship.rect.midbottom = screen_rect.midbottom
 
-pigs = pygame.sprite.Sprite()
-pigs.image = pygame.image.load('images/猪头.png')
-pigs.rect = pigs.image.get_rect()
-pigs.rect.midtop = screen_rect.midtop
+pigs = pygame.sprite.Group()
+pig = pygame.sprite.Sprite()
+pig.image = pygame.image.load('images/猪头.png')
+pig.rect = pig.image.get_rect()
+pig.rect.midtop = screen_rect.midtop
+pigs.add(pig)
 
 bullets = pygame.sprite.Group()
 
@@ -78,7 +80,7 @@ while True:
 
     screen_image.fill(color1)
     screen_image.blit(space_ship.image, space_ship.rect)
-    screen_image.blit(pigs.image, pigs.rect)
+    screen_image.blit(pig.image, pig.rect)
     for bullet in bullets:
         pygame.draw.rect(screen_image, color2, bullet.rect)
         bullet.rect.y -= bullet_speed

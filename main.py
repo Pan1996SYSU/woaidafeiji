@@ -21,15 +21,17 @@ pygame.display.set_caption('Ilovehitplane')
 title_img = pygame.image.load('images/1.png')
 pygame.display.set_icon(title_img)
 
-ship_image = pygame.image.load('images/飞机.png')
-ship_rect = ship_image.get_rect()
-ship_rect.midbottom = screen_rect.midbottom
+space_ship = pygame.sprite.Sprite()
+space_ship.image = pygame.image.load('images/飞机.png')
+space_ship.rect = space_ship.image.get_rect()
+space_ship.rect.midbottom = screen_rect.midbottom
 
-pig_image = pygame.image.load('images/猪头.png')
-pig_rect = pig_image.get_rect()
-pig_rect.top = screen_rect.top
+pigs = pygame.sprite.Sprite()
+pigs.image = pygame.image.load('images/猪头.png')
+pigs.rect = pigs.image.get_rect()
+pigs.rect.top = screen_rect.top
 
-bullet_rect_list = []
+bullets = pygame.sprite.Group()
 
 moving_left = False
 moving_right = False
@@ -51,9 +53,10 @@ while True:
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = True
             elif event.key == pygame.K_SPACE:
-                bullet_rect = pygame.Rect(0, 0, 7, 12)
-                bullet_rect.midbottom = ship_rect.midtop
-                bullet_rect_list.append(bullet_rect)
+                new_bullet = pygame.sprite.Sprite()
+                new_bullet.rect = pygame.Rect(0, 0, 7, 12)
+                new_bullet.rect.midbottom = space_ship.rect.midtop
+                bullets.add(new_bullet)
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 moving_left = False
@@ -63,22 +66,19 @@ while True:
                 moving_up = False
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = False
-    if moving_left and ship_rect.x > 0:
-        ship_rect.x -= moving_speed
-    if moving_right and ship_rect.x + ship_rect.width < screen_width:
-        ship_rect.x += moving_speed
-    if moving_up and ship_rect.y > 0:
-        ship_rect.y -= moving_speed
-    if moving_down and ship_rect.y + ship_rect.height < screen_height:
-        ship_rect.y += moving_speed
+    if moving_left and space_ship.rect.x > 0:
+        space_ship.rect.x -= moving_speed
+    if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:
+        space_ship.rect.x += moving_speed
+    if moving_up and space_ship.rect.y > 0:
+        space_ship.rect.y -= moving_speed
+    if moving_down and space_ship.rect.y + space_ship.rect.height < screen_height:
+        space_ship.rect.y += moving_speed
 
     screen_image.fill(color1)
-    screen_image.blit(ship_image, ship_rect)
-    screen_image.blit(pig_image, pig_rect)
-    for bullet_rect in bullet_rect_list:
-        pygame.draw.rect(screen_image, color2, bullet_rect)
-        if bullet_rect.bottom < 0:
-            bullet_rect_list.remove(bullet_rect)
-        bullet_rect.y -= bullet_speed
-    # print(len(bullet_rect_list))
+    screen_image.blit(space_ship.image, space_ship.rect)
+    screen_image.blit(pigs.image, pigs.rect)
+    for bullet in bullets:
+        pygame.draw.rect(screen_image, color2, bullet.rect)
+        bullet.rect.y -= bullet_speed
     pygame.display.flip()

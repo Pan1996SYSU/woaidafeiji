@@ -80,7 +80,7 @@ while True:
 
     screen_image.fill(color1)
     screen_image.blit(space_ship.image, space_ship.rect)
-    screen_image.blit(pig.image, pig.rect)
+    pigs.draw(screen_image)
     for bullet in bullets:
         pygame.draw.rect(screen_image, color2, bullet.rect)
         bullet.rect.y -= bullet_speed

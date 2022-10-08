@@ -1,5 +1,6 @@
 import sys
 import time
+
 import pygame
 
 pygame.init()
@@ -29,7 +30,7 @@ space_ship.rect.midbottom = screen_rect.midbottom
 pigs = pygame.sprite.Sprite()
 pigs.image = pygame.image.load('images/猪头.png')
 pigs.rect = pigs.image.get_rect()
-pigs.rect.top = screen_rect.top
+pigs.rect.midtop = screen_rect.midtop
 
 bullets = pygame.sprite.Group()
 
@@ -81,4 +82,7 @@ while True:
     for bullet in bullets:
         pygame.draw.rect(screen_image, color2, bullet.rect)
         bullet.rect.y -= bullet_speed
+
+    pygame.sprite.groupcollide(bullets, pigs, True, True)
+
     pygame.display.flip()

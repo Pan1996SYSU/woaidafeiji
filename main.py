@@ -17,7 +17,7 @@ screen_width = 400
 screen_image = pygame.display.set_mode((screen_width, screen_height))
 screen_rect = screen_image.get_rect()
 
-pygame.display.set_caption('我爱打飞机')
+pygame.display.set_caption('Ilovehitplane')
 title_img = pygame.image.load('images/1.png')
 pygame.display.set_icon(title_img)
 

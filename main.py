@@ -22,10 +22,12 @@ pygame.display.set_caption('Ilovehitplane')
 title_img = pygame.image.load('images/1.png')
 pygame.display.set_icon(title_img)
 
+ship = pygame.sprite.Group()
 space_ship = pygame.sprite.Sprite()
 space_ship.image = pygame.image.load('images/飞机.png')
 space_ship.rect = space_ship.image.get_rect()
 space_ship.rect.midbottom = screen_rect.midbottom
+ship.add(space_ship)
 
 pigs = pygame.sprite.Group()
 pig = pygame.sprite.Sprite()
@@ -79,12 +81,13 @@ while True:
         space_ship.rect.y += moving_speed
 
     screen_image.fill(color1)
-    screen_image.blit(space_ship.image, space_ship.rect)
+    ship.draw(screen_image)
     pigs.draw(screen_image)
     for bullet in bullets:
         pygame.draw.rect(screen_image, color2, bullet.rect)
         bullet.rect.y -= bullet_speed
 
     pygame.sprite.groupcollide(bullets, pigs, True, True)
+    pygame.sprite.groupcollide(ship, pigs, True, False)
 
     pygame.display.flip()

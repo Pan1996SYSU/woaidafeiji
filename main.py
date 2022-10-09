@@ -11,8 +11,6 @@ pause_time = 0.002
 
 color1 = (70, 90, 128)
 color2 = (60, 60, 60)
-color3 = (60, 60, 60)
-color4 = (60, 60, 60)
 
 screen_height = 700
 screen_width = 400

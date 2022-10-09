@@ -11,6 +11,8 @@ pause_time = 0.002
 
 color1 = (70, 90, 128)
 color2 = (60, 60, 60)
+color3 = (60, 60, 60)
+color4 = (60, 60, 60)
 
 screen_height = 700
 screen_width = 400
@@ -105,7 +107,7 @@ while True:
         pygame.sprite.groupcollide(bullets, pigs, True, True)
         pygame.sprite.groupcollide(ship, pigs, True, False)
     else:
-        pygame.draw.rect(screen_image, color2, button_rect)
+        pygame.draw.rect(screen_image, color2, button_rect, border_radius=10)
         screen_image.blit(play_img, play_rect)
 
     pygame.display.flip()

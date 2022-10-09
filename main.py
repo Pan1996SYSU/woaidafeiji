@@ -32,14 +32,7 @@ play_rect = play_img.get_rect()
 play_rect.center = button_rect.center
 
 ship = pygame.sprite.Group()
-
 pigs = pygame.sprite.Group()
-pig = pygame.sprite.Sprite()
-pig.image = pygame.image.load('images/猪头.png')
-pig.rect = pig.image.get_rect()
-pig.rect.midtop = screen_rect.midtop
-pigs.add(pig)
-
 bullets = pygame.sprite.Group()
 
 moving_left = False
@@ -48,6 +41,7 @@ moving_up = False
 moving_down = False
 
 ship_num = 0
+pig_num = 0
 
 while True:
     time.sleep(pause_time)
@@ -58,11 +52,23 @@ while True:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if button_rect.collidepoint(mouse_pos):
+                if len(ship) > 0:
+                    for s in ship:
+                        ship.remove(s)
                 space_ship = pygame.sprite.Sprite()
                 space_ship.image = pygame.image.load('images/飞机.png')
                 space_ship.rect = space_ship.image.get_rect()
                 space_ship.rect.midbottom = screen_rect.midbottom
                 ship.add(space_ship)
+                if len(pigs) > 0:
+                    for p in pigs:
+                        pigs.remove(p)
+                pig = pygame.sprite.Sprite()
+                pig.image = pygame.image.load('images/猪头.png')
+                pig.rect = pig.image.get_rect()
+                pig.rect.midtop = screen_rect.midtop
+                pigs.add(pig)
+
         elif event.type == pygame.KEYDOWN and len(ship) > 0:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 moving_left = True
@@ -88,7 +94,7 @@ while True:
                 moving_down = False
 
     screen_image.fill(color1)
-    if ship_num > 0:
+    if ship_num > 0 and pig_num >0:
         if moving_left and space_ship.rect.x > 0:
             space_ship.rect.x -= moving_speed
         if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:

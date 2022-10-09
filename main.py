@@ -46,6 +46,7 @@ pig_num = 0
 while True:
     time.sleep(pause_time)
     ship_num = len(ship)
+    pig_num = len(pigs)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -94,7 +95,7 @@ while True:
                 moving_down = False
 
     screen_image.fill(color1)
-    if ship_num > 0 and pig_num >0:
+    if ship_num > 0 and pig_num > 0:
         if moving_left and space_ship.rect.x > 0:
             space_ship.rect.x -= moving_speed
         if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:

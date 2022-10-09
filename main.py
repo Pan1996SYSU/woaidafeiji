@@ -22,15 +22,6 @@ pygame.display.set_caption('Ilovehitplane')
 title_img = pygame.image.load('images/1.png')
 pygame.display.set_icon(title_img)
 
-# buttons = pygame.sprite.Group()
-# star_button = pygame.sprite.Sprite()
-# end_button = pygame.sprite.Sprite()
-# star_button.rect = pygame.Rect(0, 0, 70, 40)
-# end_button.rect = pygame.Rect(0, 0, 70, 40)
-# star_button.rect.center = screen_rect.center
-# end_button.rect.center = screen_rect.center
-# buttons.add(star_button)
-# buttons.add(end_button)
 button_rect = pygame.Rect(0, 0, 200, 50)
 button_rect.center = screen_rect.center
 play_font = pygame.font.SysFont(None, 48)
@@ -39,11 +30,6 @@ play_rect = play_img.get_rect()
 play_rect.center = button_rect.center
 
 ship = pygame.sprite.Group()
-space_ship = pygame.sprite.Sprite()
-space_ship.image = pygame.image.load('images/飞机.png')
-space_ship.rect = space_ship.image.get_rect()
-space_ship.rect.midbottom = screen_rect.midbottom
-ship.add(space_ship)
 
 pigs = pygame.sprite.Group()
 pig = pygame.sprite.Sprite()
@@ -59,12 +45,23 @@ moving_right = False
 moving_up = False
 moving_down = False
 
+ship_num = 0
+
 while True:
     time.sleep(pause_time)
+    ship_num = len(ship)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            if button_rect.collidepoint(mouse_pos):
+                space_ship = pygame.sprite.Sprite()
+                space_ship.image = pygame.image.load('images/飞机.png')
+                space_ship.rect = space_ship.image.get_rect()
+                space_ship.rect.midbottom = screen_rect.midbottom
+                ship.add(space_ship)
+        elif event.type == pygame.KEYDOWN and len(ship) > 0:
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 moving_left = True
             elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -87,26 +84,28 @@ while True:
                 moving_up = False
             elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 moving_down = False
-    if moving_left and space_ship.rect.x > 0:
-        space_ship.rect.x -= moving_speed
-    if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:
-        space_ship.rect.x += moving_speed
-    if moving_up and space_ship.rect.y > 0:
-        space_ship.rect.y -= moving_speed
-    if moving_down and space_ship.rect.y + space_ship.rect.height < screen_height:
-        space_ship.rect.y += moving_speed
 
     screen_image.fill(color1)
-    ship.draw(screen_image)
-    pigs.draw(screen_image)
-    for bullet in bullets:
-        pygame.draw.rect(screen_image, color2, bullet.rect)
-        bullet.rect.y -= bullet_speed
+    if ship_num > 0:
+        if moving_left and space_ship.rect.x > 0:
+            space_ship.rect.x -= moving_speed
+        if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:
+            space_ship.rect.x += moving_speed
+        if moving_up and space_ship.rect.y > 0:
+            space_ship.rect.y -= moving_speed
+        if moving_down and space_ship.rect.y + space_ship.rect.height < screen_height:
+            space_ship.rect.y += moving_speed
 
-    pygame.sprite.groupcollide(bullets, pigs, True, True)
-    pygame.sprite.groupcollide(ship, pigs, True, False)
+        ship.draw(screen_image)
+        pigs.draw(screen_image)
+        for bullet in bullets:
+            pygame.draw.rect(screen_image, color2, bullet.rect)
+            bullet.rect.y -= bullet_speed
 
-    pygame.draw.rect(screen_image, color2, button_rect)
-    screen_image.blit(play_img, play_rect)
+        pygame.sprite.groupcollide(bullets, pigs, True, True)
+        pygame.sprite.groupcollide(ship, pigs, True, False)
+    else:
+        pygame.draw.rect(screen_image, color2, button_rect)
+        screen_image.blit(play_img, play_rect)
 
     pygame.display.flip()

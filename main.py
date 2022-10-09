@@ -10,6 +10,7 @@ bullet_speed = 3
 pause_time = 0.002
 
 color1 = (70, 90, 128)
+color1 = (255, 192, 203)
 color2 = (60, 60, 60)
 
 screen_height = 700

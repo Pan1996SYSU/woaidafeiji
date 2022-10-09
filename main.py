@@ -96,14 +96,26 @@ while True:
     screen_image.fill(color1)
     if ship_num > 0 and pig_num > 0:
         direction = random.randint(1, 4)
-        if direction == 1 and pig.rect.y > 10:
-            pig.rect.y -= 10
-        elif direction == 2 and pig.rect.x > 10:
-            pig.rect.x -= 10
-        elif direction == 3 and 700 - pig.rect.y - pig.rect.height > 10:
-            pig.rect.y += 10
-        elif direction == 3 and 400 - pig.rect.x - pig.rect.width > 10:
-            pig.rect.x += 10
+        if direction == 1:
+            if pig.rect.y > 10:
+                pig.rect.y -= 10
+            else:
+                pig.rect.y += 10
+        elif direction == 2:
+            if pig.rect.x > 10:
+                pig.rect.x -= 10
+            else:
+                pig.rect.x += 10
+        elif direction == 3:
+            if 700 - pig.rect.y - pig.rect.height > 10:
+                pig.rect.y += 10
+            else:
+                pig.rect.y -= 10
+        elif direction == 4:
+            if 400 - pig.rect.x - pig.rect.width > 10:
+                pig.rect.x += 10
+            else:
+                pig.rect.x -= 10
         if moving_left and space_ship.rect.x > 0:
             space_ship.rect.x -= moving_speed
         if moving_right and space_ship.rect.x + space_ship.rect.width < screen_width:

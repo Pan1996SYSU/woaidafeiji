@@ -31,6 +31,12 @@ pygame.display.set_icon(title_img)
 # end_button.rect.center = screen_rect.center
 # buttons.add(star_button)
 # buttons.add(end_button)
+button_rect = pygame.Rect(0, 0, 200, 50)
+button_rect.center = screen_rect.center
+play_font = pygame.font.SysFont(None, 48)
+play_img = play_font.render('Play', True, color2, color1)
+play_rect = play_img.get_rect()
+play_rect.center = button_rect.center
 
 ship = pygame.sprite.Group()
 space_ship = pygame.sprite.Sprite()
@@ -99,5 +105,8 @@ while True:
 
     pygame.sprite.groupcollide(bullets, pigs, True, True)
     pygame.sprite.groupcollide(ship, pigs, True, False)
+
+    pygame.draw.rect(screen_image, color2, button_rect)
+    screen_image.blit(play_img, play_rect)
 
     pygame.display.flip()

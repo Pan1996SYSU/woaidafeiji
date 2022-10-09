@@ -10,7 +10,6 @@ bullet_speed = 3
 pause_time = 0.002
 
 color1 = (70, 90, 128)
-color1 = (255, 192, 203)
 color2 = (60, 60, 60)
 
 screen_height = 700
@@ -22,6 +21,16 @@ screen_rect = screen_image.get_rect()
 pygame.display.set_caption('Ilovehitplane')
 title_img = pygame.image.load('images/1.png')
 pygame.display.set_icon(title_img)
+
+# buttons = pygame.sprite.Group()
+# star_button = pygame.sprite.Sprite()
+# end_button = pygame.sprite.Sprite()
+# star_button.rect = pygame.Rect(0, 0, 70, 40)
+# end_button.rect = pygame.Rect(0, 0, 70, 40)
+# star_button.rect.center = screen_rect.center
+# end_button.rect.center = screen_rect.center
+# buttons.add(star_button)
+# buttons.add(end_button)
 
 ship = pygame.sprite.Group()
 space_ship = pygame.sprite.Sprite()
